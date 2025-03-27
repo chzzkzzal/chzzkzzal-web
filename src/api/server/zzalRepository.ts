@@ -1,5 +1,13 @@
 import axios from 'axios';
 
+
+/**
+ * 예: ZzalCreateRequest
+ * 서버측에서 title 받는 DTO
+ */
+export interface ZzalCreateRequest {
+    title: string;
+}
 /**
  * 공통 응답 타입
  */
@@ -60,17 +68,24 @@ export class ZzalRepository {
      * [POST] /zzals
      * 파일 업로드
      */
-    async uploadZzal(file: File): Promise<void> {
+    async uploadZzal(file: File, title: string): Promise<void> {
         const formData = new FormData();
+
+        // 멀티파트 "file" 파트에 단일 파일
         formData.append('file', file);
 
+        // "zzalCreateRequest" 파트에 JSON (예: { title: '...' })
+        const createRequest = { title };
+        const jsonBlob = new Blob([JSON.stringify(createRequest)], {
+            type: 'application/json',
+        });
+        formData.append('zzalCreateRequest', jsonBlob);
+
+        // 전송
         await apiClient.post('/zzals', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
+            headers: { 'Content-Type': 'multipart/form-data' },
         });
     }
-
     /**
      * [GET] /zzals/{zzalId}
      * 특정 ZzalId에 대한 상세 정보

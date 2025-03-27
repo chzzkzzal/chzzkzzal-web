@@ -1,22 +1,33 @@
-// src/App.tsx
 import React from 'react';
-import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
+import {BrowserRouter, Routes, Route, useParams} from 'react-router-dom';
+
 import MainPage from './pages/MainPage';
 import ZzalDetail from './components/ZzalDetail';
+import ZzalUploaderPreviewPage from './pages/ZzalUploaderPreviewPage';
+
+// 위에서 만든 Provider
+import { FileProvider } from './context/FileContext';
 
 function App() {
     return (
         <BrowserRouter>
-            <Routes>
-                {/* 메인 페이지 */}
-                <Route path="/" element={<MainPage />} />
+            {/* FileProvider로 감싸서 하위 컴포넌트들이 컨텍스트를 사용할 수 있게 함 */}
+            <FileProvider>
+                <Routes>
+                    {/* 메인 페이지 */}
+                    <Route path="/" element={<MainPage />} />
 
-                {/* 짤 상세 페이지 (URL 파라미터 zzalId 활용) */}
-                <Route path="/zzal/:zzalId" element={<ZzalDetailWrapper />} />
-            </Routes>
+
+                    <Route path="/zzal-uploader-preview" element={<ZzalUploaderPreviewPage />} />
+
+                    {/* 짤 상세 페이지 */}
+                    <Route path="/zzal/:zzalId" element={<ZzalDetailWrapper />} />
+                </Routes>
+            </FileProvider>
         </BrowserRouter>
     );
 }
+
 
 /**
  * ZzalDetailWrapper:

@@ -1,7 +1,9 @@
 // src/components/ZzalDetail.tsx
+
 import React, { useEffect, useState } from 'react';
 import zzalRepository, { ZzalDetailResponse } from '../api/server/zzalRepository';
-import ZzalMetaInfoView from './ZzalMetaInfoView';  // 추가
+import ZzalMetaInfoView from './ZzalMetaInfoView';
+import './ZzalDetail.css'; // CSS 추가
 
 interface Props {
     zzalId: number;
@@ -23,19 +25,32 @@ const ZzalDetail: React.FC<Props> = ({ zzalId }) => {
     }, [zzalId]);
 
     if (!zzalData) {
-        return <div>로딩 중...</div>;
+        return <div className="zzal-detail-container loading">로딩 중...</div>;
     }
 
     return (
-        <div>
-            <h1>{zzalData.zzalId}번 짤 상세</h1>
-            <p>멤버 ID: {zzalData.writerId}</p>
-            <p>생성일: {zzalData.createdAt}</p>
+        <div className="zzal-detail-container">
+            <div className="zzal-detail-content">
+                <h1 className="zzal-detail-title glitch" data-text={zzalData.title}>
+                    {zzalData.title}
+                </h1>
 
-            <img src={zzalData.url} alt="zzal" style={{ width: '300px', display: 'block' }} />
+                <div className="zzal-detail-image-wrapper">
+                    <img className="zzal-detail-image" src={zzalData.url} alt="zzal" />
+                </div>
 
-            {/* 메타정보 컴포넌트로 분리 */}
-            <ZzalMetaInfoView meta={zzalData.zzalMetaInfo} />
+                <div className="zzal-detail-info">
+                    <p className="zzal-detail-writer">
+                        <span className="info-label">작성자</span>: {zzalData.writerChannelName}
+                    </p>
+                    <p className="zzal-detail-created">
+                        <span className="info-label">생성일</span>: {zzalData.createdAt}
+                    </p>
+                </div>
+
+                {/* 메타 정보 표시 (ex. width, height 등) */}
+                <ZzalMetaInfoView meta={zzalData.zzalMetaInfo} />
+            </div>
         </div>
     );
 };

@@ -1,0 +1,36 @@
+/* src/components/ChzzkLoginButton.css */
+
+/* 로그인 버튼 */
+.chzzk-login-button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #00ffa3;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 255, 163, 0.2);
+    margin: 10px 0;
+}
+
+.chzzk-login-button:hover {
+    background-color: #00cc82;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px rgba(0, 255, 163, 0.3);
+}
+
+.chzzk-login-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* 아이콘 크기 */
+.chzzk-login-icon {
+    width: 20px;
+    height: 20px;
+}
