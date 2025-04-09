@@ -1,27 +1,37 @@
-// src/components/ZzalDetail.tsx
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import zzalRepository, { ZzalDetailResponse } from '../api/server/zzalRepository';
 import ZzalMetaInfoView from './ZzalMetaInfoView';
-import './ZzalDetail.css'; // CSS 추가
+import './ZzalDetail.css';
+import TagList from "./TagList";
+import zzalHashtagRepository from "../api/server/zzalHashtagRepository";
 
 interface Props {
     zzalId: number;
 }
-
 const ZzalDetail: React.FC<Props> = ({ zzalId }) => {
     const [zzalData, setZzalData] = useState<ZzalDetailResponse | null>(null);
+    const [tags, setTags] = useState<string[]>([]);
+    const alreadyFetchedRef = useRef(false);
 
     useEffect(() => {
         const fetchDetail = async () => {
             try {
-                const data = await zzalRepository.getZzalDetail(zzalId);
-                setZzalData(data);
+                // 상세 + 태그를 병렬로 요청
+                const [detail, tagList] = await Promise.all([
+                    zzalRepository.getZzalDetail(zzalId),
+                    zzalHashtagRepository.getTags(zzalId)
+                ]);
+                setZzalData(detail);
+                setTags(tagList);
             } catch (error) {
                 console.error(error);
             }
         };
-        fetchDetail();
+
+        if (!alreadyFetchedRef.current) {
+            alreadyFetchedRef.current = true;
+            fetchDetail();
+        }
     }, [zzalId]);
 
     if (!zzalData) {
@@ -39,6 +49,9 @@ const ZzalDetail: React.FC<Props> = ({ zzalId }) => {
                     <img className="zzal-detail-image" src={zzalData.url} alt="zzal" />
                 </div>
 
+                {/* 해시태그 표시 */}
+                <TagList tags={tags} />
+
                 <div className="zzal-detail-info">
                     <p className="zzal-detail-writer">
                         <span className="info-label">작성자</span>: {zzalData.writerChannelName}
@@ -48,7 +61,6 @@ const ZzalDetail: React.FC<Props> = ({ zzalId }) => {
                     </p>
                 </div>
 
-                {/* 메타 정보 표시 (ex. width, height 등) */}
                 <ZzalMetaInfoView meta={zzalData.zzalMetaInfo} />
             </div>
         </div>

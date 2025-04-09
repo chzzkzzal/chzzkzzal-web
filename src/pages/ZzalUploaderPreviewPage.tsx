@@ -1,3 +1,4 @@
+// src/pages/ZzalUploaderPreviewPage.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import zzalRepository from '../api/server/zzalRepository';
@@ -6,17 +7,14 @@ import './ZzalUploaderPreviewPage.css';
 function ZzalUploaderPreviewPage() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [title, setTitle] = useState('');
-    // **react-router-dom** 의 useNavigate 훅 사용
     const navigate = useNavigate();
 
-    // 파일 선택
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             setSelectedFile(e.target.files[0]);
         }
     };
 
-    // 업로드
     const handleUpload = async () => {
         if (!selectedFile) {
             alert('파일을 선택하세요');
@@ -28,11 +26,10 @@ function ZzalUploaderPreviewPage() {
         }
 
         try {
-            await zzalRepository.uploadZzal(selectedFile, title);
+            const id = await zzalRepository.uploadZzal(selectedFile, title);
             alert('업로드 성공!');
-
-            // **업로드 성공 후 메인 페이지("/")로 이동**
-            navigate('/');
+            // 업로드 성공 후 태그 입력 페이지로 이동
+            navigate(`/zzals/${id}/tag`);
         } catch (error) {
             console.error(error);
             alert('업로드 실패');
@@ -61,7 +58,7 @@ function ZzalUploaderPreviewPage() {
                         type="text"
                         placeholder="제목을 입력하세요"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={e => setTitle(e.target.value)}
                         className="zzal-uploader-text"
                     />
                 </label>

@@ -1,0 +1,53 @@
+.tag-editor { margin-top: 24px; }
+
+.tag-editor-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.tag-editor input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+    list-style: none;
+    padding: 0;
+}
+
+.tag-chip {
+    background: #f1f1f1;
+    border-radius: 20px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+}
+
+.tag-remove {
+    background: transparent;
+    border: none;
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+.tag-submit-button {
+    padding: 10px 20px;
+    font-weight: 600;
+    background: #00ffa3;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.25s;
+}
+
+.tag-submit-button:hover { background: #00cc82; }

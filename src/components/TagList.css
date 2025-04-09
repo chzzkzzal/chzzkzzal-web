@@ -1,0 +1,17 @@
+.tag-view-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tag-view-chip {
+    background: #e7f9f3;
+    color: #00a36c;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}

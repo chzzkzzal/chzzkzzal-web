@@ -1,16 +1,14 @@
 import axios from 'axios';
 
+const apiClient = axios.create({
+    baseURL: 'http://localhost:8080', // 실제 서버 주소/포트에 맞추어 변경
+    withCredentials: true // 반드시 이 설정이 있어야 쿠키 전송됨
+});
 
-/**
- * 예: ZzalCreateRequest
- * 서버측에서 title 받는 DTO
- */
 export interface ZzalCreateRequest {
     title: string;
 }
-/**
- * 공통 응답 타입
- */
+
 export interface ZzalDetailResponse {
     zzalId: number;
     url: string;
@@ -19,12 +17,9 @@ export interface ZzalDetailResponse {
     updatedAt: string;
     writerId: number;
     writerChannelName: string;
-    zzalMetaInfo: ZzalMetaInfo;   // <-- 중요: 아래서 정의한 Union Type
+    zzalMetaInfo: ZzalMetaInfo;   // <-- 중요: 아래에서 정의한 Union Type
 }
 
-/**
- * "GIF" 타입의 메타정보
- */
 export interface GifMetaInfo {
     zzalType: 'GIF';
     size: number;
@@ -36,9 +31,6 @@ export interface GifMetaInfo {
     fileName: string;
 }
 
-/**
- * "PIC" 타입의 메타정보
- */
 export interface PicMetaInfo {
     zzalType: 'PIC';
     size: number;
@@ -46,29 +38,16 @@ export interface PicMetaInfo {
     height: number;
     contentType: string;
     fileName: string;
-    // 필요하면 PicInfo만의 추가 필드를 여기에
 }
 
-/**
- * ZzalMetaInfo = GifMetaInfo | PicMetaInfo
- * (타입 식별자 'zzalType'으로 분기)
- */
 export type ZzalMetaInfo = GifMetaInfo | PicMetaInfo;
-// axios 공통 설정 (Base URL 등)
-const apiClient = axios.create({
-    baseURL: 'http://localhost:8080', // 실제 서버 주소/포트에 맞추어 변경
-});
 
-/**
- * ZzalRepository:
- * Zzal 관련 API 호출을 전담하는 Repository 클래스
- */
 export class ZzalRepository {
     /**
      * [POST] /zzals
      * 파일 업로드
      */
-    async uploadZzal(file: File, title: string): Promise<void> {
+    async uploadZzal(file: File, title: string): Promise<number> {
         const formData = new FormData();
 
         // 멀티파트 "file" 파트에 단일 파일
@@ -82,10 +61,17 @@ export class ZzalRepository {
         formData.append('zzalCreateRequest', jsonBlob);
 
         // 전송
-        await apiClient.post('/zzals', formData, {
+        const res = await apiClient.post('/zzals', formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
+        // 백엔드가 Long 하나(예: 123 또는 "123") 를 반환
+        const id = Number(res.data);
+        if (!Number.isFinite(id)) {
+            throw new Error(`Upload response was not a valid number. data=${res.data}`);
+        }
+        return id;
     }
+
     /**
      * [GET] /zzals/{zzalId}
      * 특정 ZzalId에 대한 상세 정보
@@ -102,7 +88,6 @@ export class ZzalRepository {
     async getAllZzals(): Promise<ZzalDetailResponse[]> {
         const response = await apiClient.get<ZzalDetailResponse[]>('/zzals');
         console.log(response);
-
         return response.data;
     }
 }

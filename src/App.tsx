@@ -7,6 +7,7 @@ import ZzalUploaderPreviewPage from './pages/ZzalUploaderPreviewPage';
 
 // 위에서 만든 Provider
 import { FileProvider } from './context/FileContext';
+import TagPage from "./pages/TagPage";
 
 function App() {
     return (
@@ -22,6 +23,10 @@ function App() {
 
                     {/* 짤 상세 페이지 */}
                     <Route path="/zzal/:zzalId" element={<ZzalDetailWrapper />} />
+
+                    // App.tsx (Router 설정부)
+                    <Route path="/zzals/:id/tag" element={<TagPage />} />
+
                 </Routes>
             </FileProvider>
         </BrowserRouter>
