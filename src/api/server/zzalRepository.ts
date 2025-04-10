@@ -5,6 +5,14 @@ const apiClient = axios.create({
     withCredentials: true // 반드시 이 설정이 있어야 쿠키 전송됨
 });
 
+// 실제 서버 응답 형식에 맞춘 인터페이스
+export interface ServerResponse<T> {
+    status: string;
+    code: string;
+    message: string;
+    result: T;
+}
+
 export interface ZzalCreateRequest {
     title: string;
 }
@@ -17,7 +25,7 @@ export interface ZzalDetailResponse {
     updatedAt: string;
     writerId: number;
     writerChannelName: string;
-    zzalMetaInfo: ZzalMetaInfo;   // <-- 중요: 아래에서 정의한 Union Type
+    zzalMetaInfo: ZzalMetaInfo;
 }
 
 export interface GifMetaInfo {
@@ -49,7 +57,6 @@ export class ZzalRepository {
      */
     async uploadZzal(file: File, title: string): Promise<number> {
         const formData = new FormData();
-
         // 멀티파트 "file" 파트에 단일 파일
         formData.append('file', file);
 
@@ -60,16 +67,34 @@ export class ZzalRepository {
         });
         formData.append('zzalCreateRequest', jsonBlob);
 
-        // 전송
-        const res = await apiClient.post('/zzals', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-        });
-        // 백엔드가 Long 하나(예: 123 또는 "123") 를 반환
-        const id = Number(res.data);
-        if (!Number.isFinite(id)) {
-            throw new Error(`Upload response was not a valid number. data=${res.data}`);
+        try {
+            // 전송
+            const res = await apiClient.post<ServerResponse<number>>('/zzals', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            });
+
+            console.log('Upload response:', res.data);
+
+            // ServerResponse 형식 처리
+            if (res.data && res.data.result !== undefined) {
+                const id = res.data.result;
+                if (!Number.isFinite(id)) {
+                    throw new Error(`Upload response was not a valid number. result=${res.data.result}`);
+                }
+                return id;
+            } else {
+                throw new Error(`Invalid response format: ${JSON.stringify(res.data)}`);
+            }
+        } catch (error) {
+            console.error('Upload error:', error);
+            if (axios.isAxiosError(error) && error.response) {
+                console.error('Server response:', error.response.data);
+                throw new Error(`Upload failed: ${error.response.status} - ${JSON.stringify(error.response.data)}`);
+            }
+            throw error;
         }
-        return id;
     }
 
     /**
@@ -77,8 +102,20 @@ export class ZzalRepository {
      * 특정 ZzalId에 대한 상세 정보
      */
     async getZzalDetail(zzalId: number): Promise<ZzalDetailResponse> {
-        const response = await apiClient.get<ZzalDetailResponse>(`/zzals/${zzalId}`);
-        return response.data;
+        try {
+            const response = await apiClient.get<ServerResponse<ZzalDetailResponse>>(`/zzals/${zzalId}`);
+
+            if (response.data && response.data.result) {
+                return response.data.result;
+            }
+            throw new Error(`Invalid response format: ${JSON.stringify(response.data)}`);
+        } catch (error) {
+            console.error(`Error fetching zzal detail for ID ${zzalId}:`, error);
+            if (axios.isAxiosError(error) && error.response) {
+                console.error('Server response:', error.response.data);
+            }
+            throw error;
+        }
     }
 
     /**
@@ -86,9 +123,23 @@ export class ZzalRepository {
      * 모든 Zzal 목록
      */
     async getAllZzals(): Promise<ZzalDetailResponse[]> {
-        const response = await apiClient.get<ZzalDetailResponse[]>('/zzals');
-        console.log(response);
-        return response.data;
+        try {
+            const response = await apiClient.get<ServerResponse<ZzalDetailResponse[]>>('/zzals');
+            console.log('getAllZzals response:', response.data);
+
+            if (response.data && Array.isArray(response.data.result)) {
+                return response.data.result;
+            } else {
+                console.error('Invalid getAllZzals response format:', response.data);
+                return [];
+            }
+        } catch (error) {
+            console.error('Error fetching all zzals:', error);
+            if (axios.isAxiosError(error) && error.response) {
+                console.error('Server response:', error.response.data);
+            }
+            return [];
+        }
     }
 }
 
