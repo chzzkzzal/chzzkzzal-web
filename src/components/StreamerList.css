@@ -1,0 +1,161 @@
+/* 그리드 컨테이너: 4개까지 한 줄에 배치 */
+.streamer-list-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개 */
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+/* 카드 기본 스타일 (네온+글리치 테마) */
+.streamer-card {
+    position: relative;
+    padding: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: #f5f5f5;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 255, 163, 0.2); /* 네온 느낌 */
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+.streamer-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 255, 163, 0.5);
+}
+
+/* 스트리머 이미지 */
+.streamer-card-image {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+/* 카드 정보 */
+.streamer-card-info {
+    margin-top: 8px;
+}
+
+/* 글리치 느낌 스트리머명 */
+.streamer-card-name {
+    position: relative;
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #00ffa3; /* 네온그린 */
+    text-transform: uppercase;
+    overflow: hidden; /* 글리치 자르기 */
+    margin: 0 0 8px;
+}
+
+/* pseudo-elements로 글리치 효과 */
+.streamer-card-name::before,
+.streamer-card-name::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    color: #00ffa3;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+.streamer-card-name::before {
+    animation: glitchNameTop 1.5s infinite linear alternate-reverse;
+}
+
+.streamer-card-name::after {
+    color: #ff63db; /* 핑크 보정 */
+    animation: glitchNameBottom 1.5s infinite linear alternate-reverse;
+}
+
+/* 기타 텍스트 */
+.streamer-card-id,
+.streamer-card-follower {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+/* "더보기" 버튼 */
+.streamer-more-btn {
+    display: block;
+    margin: 16px auto 0;
+    padding: 8px 16px;
+    background-color: #00ffa3;
+    color: #000;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: box-shadow 0.3s, transform 0.2s;
+}
+.streamer-more-btn:hover {
+    box-shadow: 0 0 10px rgba(0, 255, 163, 0.6);
+    transform: translateY(-2px);
+}
+
+/* 로딩/에러/빈 상태 */
+.streamer-list-loading,
+.streamer-list-error,
+.streamer-list-empty {
+    margin: 16px 0;
+    font-size: 1rem;
+    text-align: center;
+    color: #ccc;
+}
+
+/* 글리치 애니메이션 */
+@keyframes glitchNameTop {
+    0% {
+        clip: rect(5px, 9999px, 25px, 0);
+        transform: translate(2px, -2px);
+    }
+    20% {
+        clip: rect(15px, 9999px, 5px, 0);
+        transform: translate(-1px, 1px);
+    }
+    40% {
+        clip: rect(0px, 9999px, 20px, 0);
+        transform: translate(1px, 2px);
+    }
+    60% {
+        clip: rect(10px, 9999px, 40px, 0);
+        transform: translate(-1px, -1px);
+    }
+    80% {
+        clip: rect(5px, 9999px, 25px, 0);
+        transform: translate(2px, 1px);
+    }
+    100% {
+        clip: rect(15px, 9999px, 5px, 0);
+        transform: translate(1px, -2px);
+    }
+}
+@keyframes glitchNameBottom {
+    0% {
+        clip: rect(25px, 9999px, 55px, 0);
+        transform: translate(-2px, 1px);
+    }
+    20% {
+        clip: rect(10px, 9999px, 35px, 0);
+        transform: translate(1px, -1px);
+    }
+    40% {
+        clip: rect(20px, 9999px, 10px, 0);
+        transform: translate(1px, 1px);
+    }
+    60% {
+        clip: rect(30px, 9999px, 45px, 0);
+        transform: translate(-1px, 2px);
+    }
+    80% {
+        clip: rect(5px, 9999px, 55px, 0);
+        transform: translate(2px, -1px);
+    }
+    100% {
+        clip: rect(15px, 9999px, 35px, 0);
+        transform: translate(-2px, 1px);
+    }
+}
