@@ -1,7 +1,7 @@
 // src/components/ZzalList.tsx
 import React, { useEffect, useState } from 'react';
-import zzalRepository, { ZzalDetailResponse } from '../api/server/zzalRepository';
 import { Link } from 'react-router-dom';
+import zzalRepository, { ZzalDetailResponse } from '../api/server/zzalRepository';
 import './ZzalList.css';
 
 const ZzalList: React.FC = () => {
@@ -14,10 +14,9 @@ const ZzalList: React.FC = () => {
             try {
                 setIsLoading(true);
                 const data = await zzalRepository.getAllZzals();
-                // data가 undefined인지 확인하고, undefined면 빈 배열 사용
-                setZzals(data || []);
-            } catch (error) {
-                console.error('Failed to fetch zzals:', error);
+                setZzals(data);
+            } catch (err) {
+                console.error('Failed to fetch zzals:', err);
                 setError('짤 목록을 불러오는 데 실패했습니다.');
             } finally {
                 setIsLoading(false);
@@ -40,6 +39,7 @@ const ZzalList: React.FC = () => {
             <h1 className="zzal-list-title glitch" data-text="전체 짤 목록">
                 전체 짤 목록
             </h1>
+
             {zzals.length === 0 ? (
                 <p className="zzal-list-empty">등록된 짤이 없습니다.</p>
             ) : (
@@ -47,8 +47,15 @@ const ZzalList: React.FC = () => {
                     {zzals.map((zzal) => (
                         <li key={zzal.zzalId} className="zzal-list-item">
                             <Link to={`/zzal/${zzal.zzalId}`} className="zzal-list-link">
-                                <img src={zzal.url} alt={`zzal-${zzal.zzalId}`} className="zzal-list-image" />
-                                <p className="zzal-list-writer">작성자: {zzal.writerChannelName}</p>
+                                <img
+                                    src={zzal.url}
+                                    alt={`zzal-${zzal.zzalId}`}
+                                    className="zzal-image"
+                                    loading="lazy" // 지연 로딩
+                                />
+                                <p className="zzal-writer">
+                                    작성자: {zzal.writerChannelName}
+                                </p>
                             </Link>
                         </li>
                     ))}
