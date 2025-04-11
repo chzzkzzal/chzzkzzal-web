@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MediaPreview from "./MediaPreview";
 import CaptionInput from "./CaptionInput";
 import HashtagInput from "./HashtagInput";
@@ -31,6 +31,19 @@ const UploadModal: React.FC<UploadModalProps> = ({ onClose, onUploadSuccess }) =
     const maxCaptionLength = 20;
     const maxTags = 5;
     const maxTagLength = 20;
+
+    // Esc 키를 눌렀을 때 모달 닫기 처리
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                onClose();
+            }
+        };
+        document.addEventListener("keydown", handleKeyDown);
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [onClose]);
 
     const handleUpload = async () => {
         // 검증: 파일, 캡션, 해시태그, 스트리머 모두 필요

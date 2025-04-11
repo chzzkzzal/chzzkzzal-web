@@ -19,7 +19,7 @@ const MediaPreview: React.FC<MediaPreviewProps> = ({ file, onFileSelect }) => {
                 <img src={URL.createObjectURL(file)} alt="미리보기" className="media-preview-image" />
             ) : (
                 <div className="media-preview-placeholder">
-                    <span>이미지/비디오 선택</span>
+                    <span>JPG,PNG/GIF 선택</span>
                 </div>
             )}
             <input type="file" accept="image/*, video/*" onChange={handleFileChange} className="media-preview-input" />
