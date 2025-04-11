@@ -1,12 +1,13 @@
-// src/pages/ZzalUploaderPreviewPage.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import zzalRepository from '../api/server/zzalRepository';
+import StreamerSelect from '../components/StreamerSelect'; // 스트리머 선택 컴포넌트 임포트
 import './ZzalUploaderPreviewPage.css';
 
 function ZzalUploaderPreviewPage() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [title, setTitle] = useState('');
+    const [selectedStreamerId, setSelectedStreamerId] = useState<string | null>(null);
     const [isUploading, setIsUploading] = useState(false);
     const navigate = useNavigate();
 
@@ -25,10 +26,18 @@ function ZzalUploaderPreviewPage() {
             alert('제목을 입력하세요');
             return;
         }
+        if (!selectedStreamerId) {
+            alert('스트리머를 선택하세요');
+            return;
+        }
 
         try {
             setIsUploading(true);
-            const id = await zzalRepository.uploadZzal(selectedFile, title);
+            const id = await zzalRepository.uploadZzal(
+                selectedFile,
+                title,
+                Number(selectedStreamerId)
+            );
 
             if (id) {
                 alert('업로드 성공!');
@@ -72,6 +81,11 @@ function ZzalUploaderPreviewPage() {
                         disabled={isUploading}
                     />
                 </label>
+                {/* 스트리머 선택 드롭다운 추가 */}
+                <StreamerSelect
+                    selectedStreamerId={selectedStreamerId}
+                    onChange={setSelectedStreamerId}
+                />
                 <button
                     onClick={handleUpload}
                     className="zzal-uploader-button"

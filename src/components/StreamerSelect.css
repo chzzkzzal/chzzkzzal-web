@@ -1,0 +1,13 @@
+.streamer-select-container {
+    margin-bottom: 20px;
+}
+
+.streamer-select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    background: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    border-radius: 4px;
+}

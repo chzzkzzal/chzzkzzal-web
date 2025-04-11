@@ -15,6 +15,7 @@ export interface ServerResponse<T> {
 
 export interface ZzalCreateRequest {
     title: string;
+    streamerId: number;
 }
 
 export interface ZzalDetailResponse {
@@ -55,13 +56,13 @@ export class ZzalRepository {
      * [POST] /zzals
      * 파일 업로드
      */
-    async uploadZzal(file: File, title: string): Promise<number> {
+    async uploadZzal(file: File, title: string, streamerId: number): Promise<number> {
         const formData = new FormData();
         // 멀티파트 "file" 파트에 단일 파일
         formData.append('file', file);
 
-        // "zzalCreateRequest" 파트에 JSON (예: { title: '...' })
-        const createRequest = { title };
+        // "zzalCreateRequest" 파트에 JSON으로 { title, streamerId } 전송
+        const createRequest: ZzalCreateRequest = { title, streamerId };
         const jsonBlob = new Blob([JSON.stringify(createRequest)], {
             type: 'application/json',
         });
