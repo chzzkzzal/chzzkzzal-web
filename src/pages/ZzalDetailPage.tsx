@@ -1,8 +1,9 @@
+// src/components/ZzalDetailPage.tsx
 import React, { useEffect, useState } from 'react';
 import zzalRepository, { ZzalDetailResponse } from '../api/server/zzalRepository';
-import ZzalMetaInfoView from './ZzalMetaInfoView';
-import './ZzalDetail.css';
-import TagList from "./TagList";
+import ZzalMetaInfoView from '../components/ZzalMetaInfoView';
+import './ZzalDetailPage.css';
+import TagList from "../components/TagList";
 import zzalHashtagRepository from "../api/server/zzalHashtagRepository";
 import { Link } from 'react-router-dom';
 
@@ -10,7 +11,18 @@ interface Props {
     zzalId: number;
 }
 
-const ZzalDetail: React.FC<Props> = ({ zzalId }) => {
+// 날짜를 "YYYY-MM-DD HH:MM" 형식으로 포맷팅하는 함수
+const formatDate = (isoString: string): string => {
+    const date = new Date(isoString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+};
+
+const ZzalDetailPage: React.FC<Props> = ({ zzalId }) => {
     const [zzalData, setZzalData] = useState<ZzalDetailResponse | null>(null);
     const [tags, setTags] = useState<string[]>([]);
     const [error, setError] = useState<string | null>(null);
@@ -29,7 +41,6 @@ const ZzalDetail: React.FC<Props> = ({ zzalId }) => {
                     zzalHashtagRepository.getTags(zzalId)
                 ]);
 
-                // 컴포넌트가 이미 언마운트되었다면 state 업데이트 방지
                 if (isUnmounted) return;
 
                 if (!detail) {
@@ -37,10 +48,9 @@ const ZzalDetail: React.FC<Props> = ({ zzalId }) => {
                     return;
                 }
 
-                // 짤 상세 정보 세팅
                 setZzalData(detail);
 
-                // 태그 세팅 (백엔드에서 제대로 내려주고 있는지 꼭 확인!)
+                // 태그 세팅 (백엔드에서 제대로 내려주고 있는지 확인)
                 console.log("태그 데이터:", tagList);
                 setTags(Array.isArray(tagList) ? tagList : []);
             } catch (e) {
@@ -53,10 +63,8 @@ const ZzalDetail: React.FC<Props> = ({ zzalId }) => {
             }
         };
 
-        // 실제 데이터 요청
         fetchDetailAndTags();
 
-        // cleanup 함수에서 언마운트 여부 설정
         return () => {
             isUnmounted = true;
         };
@@ -95,17 +103,16 @@ const ZzalDetail: React.FC<Props> = ({ zzalId }) => {
                     <div className="zzal-detail-tags-header">
                         <h3>태그</h3>
                     </div>
-                    <TagList tags={tags}  />
-
-                    {/*<TagList tags={tags} onClick={handleTagClick} />*/}
+                    {/* TagList에서 클릭 이벤트를 사용하려면 주석 해제 */}
+                    <TagList tags={tags} /* onClick={handleTagClick} */ />
                 </div>
 
                 <div className="zzal-detail-info">
                     <p className="zzal-detail-writer">
-                        <span className="info-label">작성자</span>: {zzalData.writerChannelName}
+                        <span className="info-label">By</span> {zzalData.writerChannelName}
                     </p>
                     <p className="zzal-detail-created">
-                        <span className="info-label">생성일</span>: {zzalData.createdAt}
+                        <span className="info-label"></span> {formatDate(zzalData.createdAt)}
                     </p>
                 </div>
 
@@ -115,4 +122,4 @@ const ZzalDetail: React.FC<Props> = ({ zzalId }) => {
     );
 };
 
-export default ZzalDetail;
+export default ZzalDetailPage;

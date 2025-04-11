@@ -1,10 +1,9 @@
-/* src/components/ZzalDetail.css */
+/* src/components/ZzalDetailPage.css */
 
 /* 페이지 배경 */
 .zzal-detail-container {
     min-height: 100vh;
     padding: 60px 20px;
-    /* 다크 그라데이션 (두께가 적당한 어두운 그레이) */
     background: linear-gradient(120deg, #121212 0%, #1e1e1e 100%);
     display: flex;
     justify-content: center;
@@ -13,7 +12,6 @@
     color: #e0e0e0;
 }
 
-/* 로딩 상태 스타일 */
 .zzal-detail-container.loading {
     display: flex;
     justify-content: center;
@@ -25,7 +23,6 @@
 .zzal-detail-content {
     max-width: 1000px;
     width: 100%;
-    /* 어둡지만 약간 밝은 표면 */
     background: rgba(30, 30, 30, 0.95);
     backdrop-filter: blur(4px);
     border-radius: 12px;
@@ -40,7 +37,6 @@
     font-weight: 700;
     margin-bottom: 24px;
     text-align: center;
-    /* 새로운 제목 색상 (메인 accent) */
     color: #4db6ac;
     overflow: hidden;
     text-transform: uppercase;
@@ -128,12 +124,13 @@
 }
 
 .zzal-detail-image {
-    width: 80%;
-    max-width: 900px;
-    /* 이미지 테두리는 accent 색상 */
+    width: 100%;
+    max-width: 500px;  /* 최대 이미지 넓이를 500px로 제한 */
+    height: auto;
     border: 2px solid #4db6ac;
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(77, 182, 172, 0.3);
+    margin: 0 auto;  /* 중앙 정렬 */
 }
 
 /* 작성자, 생성일 등 */
