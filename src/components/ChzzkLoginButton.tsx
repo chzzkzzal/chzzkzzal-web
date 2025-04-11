@@ -1,20 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import authRepository from '../api/server/AuthRepository'; // AuthRepository 의 싱글턴 인스턴스 임포트
-import './ChzzkLoginButton.css';
-
-export interface ChzzkAuthConfig {
-    clientId: string;
-    redirectUri: string;
-    state: string;
-    authBaseUrl: string;
-}
-
-const AUTH_CONFIG: ChzzkAuthConfig = {
-    clientId: '0aa21664-c1d8-4a6b-907c-f2d7d660bdd0',
-    redirectUri: 'http://localhost:8080/callback',
-    state: 'zxclDasdfA25',
-    authBaseUrl: 'https://chzzk.naver.com/account-interlock'
-};
+import React, { useEffect, useState } from "react";
+import authRepository from "../api/server/AuthRepository"; // AuthRepository 싱글턴 인스턴스 임포트
+import AUTH_CONFIG, { ChzzkAuthConfig } from "../config/AppConfig"; // 민감설정 정보 파일에서 import
+import "./ChzzkLoginButton.css";
 
 const ChzzkLoginButton: React.FC = () => {
     // 로그인 여부 상태
