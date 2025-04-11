@@ -1,17 +1,19 @@
 /* src/components/ZzalDetail.css */
 
-/* 페이지 배경 (화면 전체를 채우고 싶다면, 상위 컨테이너에서 height를 잡아주세요) */
+/* 페이지 배경 */
 .zzal-detail-container {
     min-height: 100vh;
     padding: 60px 20px;
-    background: linear-gradient(120deg, #212121 0%, #3b3b3b 100%);
+    /* 다크 그라데이션 (두께가 적당한 어두운 그레이) */
+    background: linear-gradient(120deg, #121212 0%, #1e1e1e 100%);
     display: flex;
     justify-content: center;
     align-items: flex-start;
     font-family: "Pretendard", sans-serif;
-    color: #f5f5f5;
+    color: #e0e0e0;
 }
 
+/* 로딩 상태 스타일 */
 .zzal-detail-container.loading {
     display: flex;
     justify-content: center;
@@ -19,25 +21,27 @@
     font-size: 1.2rem;
 }
 
-/* 내부 컨텐츠 래퍼 */
+/* 내부 콘텐츠 래퍼 */
 .zzal-detail-content {
     max-width: 1000px;
     width: 100%;
-    background: rgba(255, 255, 255, 0.03);
+    /* 어둡지만 약간 밝은 표면 */
+    background: rgba(30, 30, 30, 0.95);
     backdrop-filter: blur(4px);
     border-radius: 12px;
     padding: 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
-/* 타이틀 (글리치 효과) */
+/* 타이틀 (글리치 효과 포함) */
 .zzal-detail-title {
     position: relative;
     font-size: 2.4rem;
     font-weight: 700;
     margin-bottom: 24px;
     text-align: center;
-    color: #00ffa3;
+    /* 새로운 제목 색상 (메인 accent) */
+    color: #4db6ac;
     overflow: hidden;
     text-transform: uppercase;
 }
@@ -52,20 +56,18 @@
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
 }
-
 .zzal-detail-title.glitch::before {
     animation: glitchTop 1.5s infinite linear alternate-reverse;
-    color: #00ffa3;
+    color: #4db6ac;
     top: 0;
 }
-
 .zzal-detail-title.glitch::after {
     animation: glitchBottom 1.5s infinite linear alternate-reverse;
     color: #ff63db;
     top: 0;
 }
 
-/* 글리치 keyframes */
+/* 글리치 keyframes (색상, 이동 정도는 기존과 유사) */
 @keyframes glitchTop {
     0% {
         clip: rect(56px, 9999px, 32px, 0);
@@ -92,7 +94,6 @@
         transform: translate(-1px, 2px);
     }
 }
-
 @keyframes glitchBottom {
     0% {
         clip: rect(86px, 9999px, 4px, 0);
@@ -129,9 +130,10 @@
 .zzal-detail-image {
     width: 80%;
     max-width: 900px;
-    border: 2px solid #00ffa3;
+    /* 이미지 테두리는 accent 색상 */
+    border: 2px solid #4db6ac;
     border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 255, 163, 0.3);
+    box-shadow: 0 4px 16px rgba(77, 182, 172, 0.3);
 }
 
 /* 작성자, 생성일 등 */
@@ -139,12 +141,15 @@
     margin-bottom: 16px;
     text-align: center;
 }
+
 .zzal-detail-writer,
 .zzal-detail-created {
     margin: 4px 0;
     font-size: 1rem;
     font-weight: 500;
+    color: #e0e0e0;
 }
+
 .info-label {
     color: #ff63db;
     margin-right: 4px;

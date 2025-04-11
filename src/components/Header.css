@@ -1,0 +1,38 @@
+.main-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: #1e1e1e;
+    /* 헤더 영역의 그림자와 배경 색상 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header-title {
+    font-size: 2rem;
+    color: #4db6ac;
+    text-transform: uppercase;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* (글리치 효과가 필요한 경우 기존 Header 관련 글리치 스타일 추가 가능) */
+
+.header-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.upload-icon-button {
+    background: transparent;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.upload-icon-button:hover {
+    color: #4db6ac;
+}

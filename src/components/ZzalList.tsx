@@ -42,9 +42,9 @@ const ZzalList: React.FC<ZzalListProps> = ({ streamerId }) => {
         fetchZzals();
     }, [streamerId]);
 
-    if (loading) {
-        return <div className="zzal-list-loading">로딩 중...</div>;
-    }
+    // if (loading) {
+    //     return <div className="zzal-list-loading">로딩 중...</div>;
+    // }
     if (error) {
         return <div className="zzal-list-error">{error}</div>;
     }
@@ -72,7 +72,7 @@ const ZzalList: React.FC<ZzalListProps> = ({ streamerId }) => {
                                 className="zzal-image"
                                 loading="lazy"
                             />
-                            <p className="zzal-writer">작성자: {zzal.writerChannelName}</p>
+                            <p className="zzal-title">{zzal.title}</p>
                         </a>
                     </li>
                 ))}

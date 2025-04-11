@@ -94,12 +94,10 @@ const ZzalDetail: React.FC<Props> = ({ zzalId }) => {
                 <div className="zzal-detail-tags-section">
                     <div className="zzal-detail-tags-header">
                         <h3>태그</h3>
-                        <Link to={`/zzals/${zzalId}/tag`} className="zzal-detail-edit-tags-btn">
-                            태그 편집
-                        </Link>
                     </div>
+                    <TagList tags={tags}  />
 
-                    <TagList tags={tags} onClick={handleTagClick} />
+                    {/*<TagList tags={tags} onClick={handleTagClick} />*/}
                 </div>
 
                 <div className="zzal-detail-info">
