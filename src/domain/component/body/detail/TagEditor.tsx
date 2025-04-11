@@ -1,5 +1,5 @@
 import React, { useState, KeyboardEvent } from 'react';
-import zzalHashtagRepository from '../api/server/zzalHashtagRepository';
+import zzalHashtagRepository from '../../../../api/server/zzalHashtagRepository';
 import './TagEditor.css';
 
 interface TagEditorProps {

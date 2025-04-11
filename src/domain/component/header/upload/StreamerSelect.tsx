@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import streamerRepository, { GetStreamerResponse } from "../api/server/StreamerRepository";
+import streamerRepository, { GetStreamerResponse } from "../../../../api/server/StreamerRepository";
 import "./StreamerSelect.css";
 
 interface StreamerSelectProps {

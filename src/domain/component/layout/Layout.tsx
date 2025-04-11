@@ -1,8 +1,8 @@
 // src/components/Layout.tsx
 import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import Header from "./Header";
-import UploadModal from "./UploadModal";
+import Header from "../header/Header";
+import UploadModal from "../header/upload/UploadModal";
 import { AnimatePresence, motion } from "framer-motion";
 import "./Layout.css";
 

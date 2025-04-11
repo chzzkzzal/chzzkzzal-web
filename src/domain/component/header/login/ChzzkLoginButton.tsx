@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import authRepository from "../api/server/AuthRepository"; // AuthRepository 싱글턴 인스턴스 임포트
-import AUTH_CONFIG, { ChzzkAuthConfig } from "../config/AppConfig"; // 민감설정 정보 파일에서 import
+import authRepository from "../../../../api/server/AuthRepository"; // AuthRepository 싱글턴 인스턴스 임포트
+import AUTH_CONFIG, { ChzzkAuthConfig } from "../../../../config/AppConfig"; // 민감설정 정보 파일에서 import
 import "./ChzzkLoginButton.css";
 
 const ChzzkLoginButton: React.FC = () => {

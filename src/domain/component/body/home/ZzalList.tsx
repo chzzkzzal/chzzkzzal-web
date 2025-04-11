@@ -1,8 +1,8 @@
 // src/components/ZzalList.tsx
 import React, { useEffect, useState } from "react";
-import zzalRepository from "../api/server/zzalRepository";
-import streamerRepository, { GetStreamerResponse } from "../api/server/StreamerRepository";
-import { ZzalDetailResponse } from "../api/server/zzalRepository";
+import zzalRepository from "../../../../api/server/zzalRepository";
+import streamerRepository, { GetStreamerResponse } from "../../../../api/server/StreamerRepository";
+import { ZzalDetailResponse } from "../../../../api/server/zzalRepository";
 import "./ZzalList.css";
 
 interface ZzalListProps {

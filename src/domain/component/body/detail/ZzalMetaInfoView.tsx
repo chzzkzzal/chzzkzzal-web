@@ -1,6 +1,6 @@
 // src/components/ZzalMetaInfoView.tsx
 import React from 'react';
-import { ZzalMetaInfo } from '../api/server/zzalRepository';
+import { ZzalMetaInfo } from '../../../../api/server/zzalRepository';
 
 interface Props {
     meta: ZzalMetaInfo;

@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
-import MainPage from './pages/MainPage';
-import ZzalDetailPage from './pages/ZzalDetailPage';
-import StreamerDetailPage from './components/StreamerDetailPage';
-import Layout from './components/Layout';  // Header가 포함된 공통 Layout 컴포넌트
+import MainPage from './domain/pages/MainPage';
+import ZzalDetailPage from './domain/pages/ZzalDetailPage';
+import Layout from './domain/component/layout/Layout';  // Header가 포함된 공통 Layout 컴포넌트
 import { FileProvider } from './context/FileContext';
 
 /**
@@ -18,7 +17,6 @@ function App() {
                     <Route path="/" element={<Layout />}>
                         <Route index element={<MainPage />} />
                         <Route path="zzal/:zzalId" element={<ZzalDetailWrapper />} />
-                        <Route path="streamer/:streamerId" element={<StreamerDetailPage />} />
                     </Route>
                 </Routes>
             </FileProvider>

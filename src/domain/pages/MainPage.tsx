@@ -1,7 +1,7 @@
 // src/pages/MainPage.tsx
 import React, { useState } from "react";
-import ZzalList from "../components/ZzalList";
-import StreamerList from "../components/StreamerList";
+import ZzalList from "../component/body/home/ZzalList";
+import StreamerList from "../component/body/home/StreamerList";
 import "./MainPage.css";
 
 const MainPage: React.FC = () => {

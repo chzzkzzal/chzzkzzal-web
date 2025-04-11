@@ -4,9 +4,9 @@ import CaptionInput from "./CaptionInput";
 import HashtagInput from "./HashtagInput";
 import StreamerSelect from "./StreamerSelect";
 import Button from "./Button";
-import ErrorMessage from "./ErrorMessage";
-import zzalRepository from "../api/server/zzalRepository";           // 짤 업로드 API 호출 모듈
-import zzalHashtagRepository from "../api/server/zzalHashtagRepository"; // 해시태그 API 호출 모듈
+import ErrorMessage from "../../common/ErrorMessage";
+import zzalRepository from "../../../../api/server/zzalRepository";           // 짤 업로드 API 호출 모듈
+import zzalHashtagRepository from "../../../../api/server/zzalHashtagRepository"; // 해시태그 API 호출 모듈
 import "./UploadModal.css";
 
 export interface UploadData {

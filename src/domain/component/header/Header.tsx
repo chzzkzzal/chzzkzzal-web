@@ -1,9 +1,9 @@
 // src/components/Header.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ChzzkLoginButton from "./ChzzkLoginButton";
+import ChzzkLoginButton from "./login/ChzzkLoginButton";
 // 저장한 아이콘 이미지 임포트 (파일 경로에 맞게 조정하세요)
-import 치짤콘 from "../치짤콘.png";
+import 치짤콘 from "../../../치짤콘.png";
 import "./Header.css";
 
 interface HeaderProps {

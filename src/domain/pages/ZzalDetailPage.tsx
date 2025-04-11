@@ -1,10 +1,10 @@
 // src/components/ZzalDetailPage.tsx
 import React, { useEffect, useState } from 'react';
-import zzalRepository, { ZzalDetailResponse } from '../api/server/zzalRepository';
-import ZzalMetaInfoView from '../components/ZzalMetaInfoView';
+import zzalRepository, { ZzalDetailResponse } from '../../api/server/zzalRepository';
+import ZzalMetaInfoView from '../component/body/detail/ZzalMetaInfoView';
 import './ZzalDetailPage.css';
-import TagList from "../components/TagList";
-import zzalHashtagRepository from "../api/server/zzalHashtagRepository";
+import TagList from "../component/body/detail/TagList";
+import zzalHashtagRepository from "../../api/server/zzalHashtagRepository";
 import { Link } from 'react-router-dom';
 
 interface Props {
