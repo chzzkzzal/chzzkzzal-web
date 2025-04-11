@@ -1,6 +1,6 @@
 /* src/components/ChzzkLoginButton.css */
 
-/* 로그인 버튼 */
+/* 공통 버튼 스타일 (로그인/로그아웃 공용) */
 .chzzk-login-button {
     padding: 12px 24px;
     font-size: 1rem;
@@ -29,7 +29,6 @@
     box-shadow: none;
 }
 
-/* 아이콘 크기 */
 .chzzk-login-icon {
     width: 20px;
     height: 20px;
