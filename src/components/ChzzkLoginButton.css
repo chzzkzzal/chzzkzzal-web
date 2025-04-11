@@ -5,7 +5,7 @@
     padding: 12px 24px;
     font-size: 1rem;
     font-weight: bold;
-    background-color: #00ffa3;
+    background-color: #008f73; /* 기존 #00ffa3보다 어두운 색상 */
     color: #fff;
     border: none;
     border-radius: 50px;
@@ -14,14 +14,14 @@
     align-items: center;
     gap: 10px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 255, 163, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 143, 115, 0.2); /* 색상에 맞게 조정 */
     margin: 10px 0;
 }
 
 .chzzk-login-button:hover {
-    background-color: #00cc82;
+    background-color: #00795a; /* hover 시 약간 더 어둡게 */
     transform: translateY(-2px);
-    box-shadow: 0 8px 12px rgba(0, 255, 163, 0.3);
+    box-shadow: 0 8px 12px rgba(0, 143, 115, 0.3);
 }
 
 .chzzk-login-button:active {

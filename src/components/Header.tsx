@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ onUploadClick }) => {
                 alt="치짤 아이콘"
                 className="header-icon"
                 onClick={handleIconClick}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer", width: "100px" }} // 인라인 스타일에서 width 조절
             />
             <div className="header-buttons">
                 <button onClick={onUploadClick} className="upload-icon-button">

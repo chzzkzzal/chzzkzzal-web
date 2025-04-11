@@ -54,8 +54,8 @@ const ZzalList: React.FC<ZzalListProps> = ({ streamerId }) => {
 
     const titleText =
         streamerId && streamerInfo
-            ? `${streamerInfo.channelName} 스트리머 짤 목록`
-            : "전체 짤 목록";
+            ? `${streamerInfo.channelName} 짤`
+            : "짤";
 
     return (
         <div className="zzal-list-container">
