@@ -1,20 +1,20 @@
-// src/pages/MainPage.tsx
 import React, { useState } from "react";
 import ZzalList from "../component/body/home/ZzalList";
 import StreamerList from "../component/body/home/StreamerList";
 import "./MainPage.css";
 
 const MainPage: React.FC = () => {
-    const [selectedStreamerId, setSelectedStreamerId] = useState<string | null>(null);
+    // 상태 변수명을 selectedChannelId로 변경
+    const [selectedChannelId, setSelectedChannelId] = useState<string | null>(null);
 
-    const handleStreamerSelect = (streamerId: string) => {
-        setSelectedStreamerId((prev) => (prev === streamerId ? null : streamerId));
+    const handleStreamerSelect = (channelId: string) => {
+        setSelectedChannelId((prev) => (prev === channelId ? null : channelId));
     };
 
     return (
         <div className="main-page-container">
-            <StreamerList onSelect={handleStreamerSelect} selectedStreamerId={selectedStreamerId} />
-            <ZzalList streamerId={selectedStreamerId || undefined} />
+            <StreamerList onSelect={handleStreamerSelect} selectedChannelId={selectedChannelId} />
+            <ZzalList channelId={selectedChannelId || undefined} />
         </div>
     );
 };

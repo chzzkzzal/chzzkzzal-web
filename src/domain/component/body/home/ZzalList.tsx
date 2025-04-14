@@ -1,4 +1,3 @@
-// src/components/ZzalList.tsx
 import React, { useEffect, useState } from "react";
 import zzalRepository from "../../../../api/server/zzalRepository";
 import streamerRepository, { GetStreamerResponse } from "../../../../api/server/StreamerRepository";
@@ -6,10 +5,11 @@ import { ZzalDetailResponse } from "../../../../api/server/zzalRepository";
 import "./ZzalList.css";
 
 interface ZzalListProps {
-    streamerId?: string; // 선택된 스트리머가 있으면 해당 ID, 없으면 전체 짤 목록 호출
+    // 선택된 스트리머의 채널ID를 전달받음
+    channelId?: string;
 }
 
-const ZzalList: React.FC<ZzalListProps> = ({ streamerId }) => {
+const ZzalList: React.FC<ZzalListProps> = ({ channelId }) => {
     const [zzals, setZzals] = useState<ZzalDetailResponse[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -19,10 +19,11 @@ const ZzalList: React.FC<ZzalListProps> = ({ streamerId }) => {
         const fetchZzals = async () => {
             setLoading(true);
             try {
-                if (streamerId) {
+                if (channelId) {
+                    // 선택된 채널에 대해 해당 스트리머의 짤 목록과 스트리머 정보를 병렬 호출
                     const [zzalData, info] = await Promise.all([
-                        streamerRepository.getStreamerZzals(streamerId),
-                        streamerRepository.getStreamerById(streamerId)
+                        streamerRepository.getStreamerZzals(channelId),
+                        streamerRepository.getStreamerById(channelId)
                     ]);
                     setZzals(zzalData);
                     setStreamerInfo(info);
@@ -40,11 +41,11 @@ const ZzalList: React.FC<ZzalListProps> = ({ streamerId }) => {
             }
         };
         fetchZzals();
-    }, [streamerId]);
+    }, [channelId]);
 
-    // if (loading) {
-    //     return <div className="zzal-list-loading">로딩 중...</div>;
-    // }
+    if (loading) {
+        return <div className="zzal-list-loading">로딩 중...</div>;
+    }
     if (error) {
         return <div className="zzal-list-error">{error}</div>;
     }
@@ -53,7 +54,7 @@ const ZzalList: React.FC<ZzalListProps> = ({ streamerId }) => {
     }
 
     const titleText =
-        streamerId && streamerInfo
+        channelId && streamerInfo
             ? `${streamerInfo.channelName} 짤`
             : "짤";
 

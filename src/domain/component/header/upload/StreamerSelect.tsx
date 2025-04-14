@@ -1,13 +1,14 @@
+// src/components/StreamerSelect.tsx
 import React, { useEffect, useState } from "react";
 import streamerRepository, { GetStreamerResponse } from "../../../../api/server/StreamerRepository";
 import "./StreamerSelect.css";
 
 interface StreamerSelectProps {
-    selectedStreamerId: string | null;
-    onChange: (id: string) => void;
+    selectedChannelId: string | null;
+    onChange: (channelId: string) => void;
 }
 
-const StreamerSelect: React.FC<StreamerSelectProps> = ({ selectedStreamerId, onChange }) => {
+const StreamerSelect: React.FC<StreamerSelectProps> = ({ selectedChannelId, onChange }) => {
     const [streamers, setStreamers] = useState<GetStreamerResponse[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -32,7 +33,7 @@ const StreamerSelect: React.FC<StreamerSelectProps> = ({ selectedStreamerId, onC
     return (
         <div className="streamer-select-container">
             <select
-                value={selectedStreamerId || ""}
+                value={selectedChannelId || ""}
                 onChange={(e) => onChange(e.target.value)}
                 className="streamer-select"
             >
@@ -40,7 +41,7 @@ const StreamerSelect: React.FC<StreamerSelectProps> = ({ selectedStreamerId, onC
                     스트리머 선택
                 </option>
                 {streamers.map((streamer) => (
-                    <option key={streamer.streamerId} value={streamer.streamerId}>
+                    <option key={streamer.channelId} value={streamer.channelId}>
                         {streamer.channelName}
                     </option>
                 ))}

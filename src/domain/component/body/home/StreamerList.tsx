@@ -1,14 +1,13 @@
-// src/components/StreamerList.tsx
 import React, { useEffect, useState } from "react";
 import streamerRepository, { GetStreamerResponse } from "../../../../api/server/StreamerRepository";
 import "./StreamerList.css";
 
 interface StreamerListProps {
-    onSelect: (streamerId: string) => void;
-    selectedStreamerId: string | null;
+    onSelect: (channelId: string) => void;
+    selectedChannelId: string | null;
 }
 
-const StreamerList: React.FC<StreamerListProps> = ({ onSelect, selectedStreamerId }) => {
+const StreamerList: React.FC<StreamerListProps> = ({ onSelect, selectedChannelId }) => {
     const [streamers, setStreamers] = useState<GetStreamerResponse[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -34,13 +33,13 @@ const StreamerList: React.FC<StreamerListProps> = ({ onSelect, selectedStreamerI
         <div className="streamer-list-container">
             {streamers.map((streamer) => (
                 <div
-                    key={streamer.streamerId}
-                    className={`streamer-card ${selectedStreamerId === streamer.streamerId ? 'selected' : ''}`}
-                    onClick={() => onSelect(streamer.streamerId)}
+                    key={streamer.channelId}
+                    className={`streamer-card ${selectedChannelId === streamer.channelId ? 'selected' : ''}`}
+                    onClick={() => onSelect(streamer.channelId)}
                 >
                     <img src={streamer.channelImageUrl} alt={streamer.channelName} className="streamer-card-image" />
                     <div className="streamer-card-info">
-                        <h3 className="streamer-card-name">{streamer.channelName}</h3>
+                        <h3 className="streamer-card-name" data-text={streamer.channelName}>{streamer.channelName}</h3>
                     </div>
                 </div>
             ))}

@@ -1,7 +1,7 @@
 import axios from 'axios';
-
+import AUTH_CONFIG from "../../config/AppConfig";
 const apiClient = axios.create({
-    baseURL: 'http://localhost:8080', // 실제 서버 주소/포트에 맞추어 변경
+    baseURL: AUTH_CONFIG.apiBaseUrl,
     withCredentials: true // 반드시 이 설정이 있어야 쿠키 전송됨
 });
 
@@ -13,9 +13,10 @@ export interface ServerResponse<T> {
     result: T;
 }
 
+// 이제 ZzalCreateRequest는 숫자형 streamerId 대신 문자열 channelId를 사용합니다.
 export interface ZzalCreateRequest {
     title: string;
-    streamerId: number;
+    channelId: string;
 }
 
 export interface ZzalDetailResponse {
@@ -56,13 +57,13 @@ export class ZzalRepository {
      * [POST] /zzals
      * 파일 업로드
      */
-    async uploadZzal(file: File, title: string, streamerId: number): Promise<number> {
+    async uploadZzal(file: File, title: string, channelId: string): Promise<number> {
         const formData = new FormData();
         // 멀티파트 "file" 파트에 단일 파일
         formData.append('file', file);
 
-        // "zzalCreateRequest" 파트에 JSON으로 { title, streamerId } 전송
-        const createRequest: ZzalCreateRequest = { title, streamerId };
+        // "zzalCreateRequest" 파트에 JSON으로 { title, channelId } 전송
+        const createRequest: ZzalCreateRequest = { title, channelId };
         const jsonBlob = new Blob([JSON.stringify(createRequest)], {
             type: 'application/json',
         });

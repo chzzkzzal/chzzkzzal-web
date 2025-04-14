@@ -1,7 +1,8 @@
 import axios from 'axios';
+import AUTH_CONFIG from "../../config/AppConfig";
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:8080', // 실제 서버 주소/포트에 맞추어 변경
+    baseURL: AUTH_CONFIG.apiBaseUrl,
     withCredentials: true // 반드시 이 설정이 있어야 쿠키 전송됨
 });
 
