@@ -1,0 +1,39 @@
+.main-page-container {
+    background: #121212;
+    min-height: 100vh;
+    color: #e0e0e0;
+    font-family: "Pretendard", sans-serif;
+}
+
+.main-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #1e1e1e;
+}
+
+.header-title {
+    font-size: 2rem;
+    color: #4db6ac;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.upload-icon-button {
+    background: transparent;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.upload-icon-button:hover {
+    color: #4db6ac;
+}
+
+.main-page-content {
+    padding: 20px;
+}

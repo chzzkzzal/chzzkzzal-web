@@ -1,0 +1,154 @@
+/* src/components/ZzalDetailPage.css */
+
+/* 페이지 배경 */
+.zzal-detail-container {
+    min-height: 100vh;
+    padding: 60px 20px;
+    background: linear-gradient(120deg, #121212 0%, #1e1e1e 100%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: "Pretendard", sans-serif;
+    color: #e0e0e0;
+}
+
+.zzal-detail-container.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+/* 내부 콘텐츠 래퍼 */
+.zzal-detail-content {
+    max-width: 1000px;
+    width: 100%;
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+/* 타이틀 (글리치 효과 포함) */
+.zzal-detail-title {
+    position: relative;
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    text-align: center;
+    color: #4db6ac;
+    overflow: hidden;
+    text-transform: uppercase;
+}
+
+/* 글리치 효과를 위한 pseudo-element & keyframes */
+.zzal-detail-title.glitch::before,
+.zzal-detail-title.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+}
+.zzal-detail-title.glitch::before {
+    animation: glitchTop 1.5s infinite linear alternate-reverse;
+    color: #4db6ac;
+    top: 0;
+}
+.zzal-detail-title.glitch::after {
+    animation: glitchBottom 1.5s infinite linear alternate-reverse;
+    color: #ff63db;
+    top: 0;
+}
+
+/* 글리치 keyframes (색상, 이동 정도는 기존과 유사) */
+@keyframes glitchTop {
+    0% {
+        clip: rect(56px, 9999px, 32px, 0);
+        transform: translate(2px, -1px);
+    }
+    20% {
+        clip: rect(12px, 9999px, 76px, 0);
+        transform: translate(-2px, 0);
+    }
+    40% {
+        clip: rect(72px, 9999px, 14px, 0);
+        transform: translate(-1px, 2px);
+    }
+    60% {
+        clip: rect(3px, 9999px, 70px, 0);
+        transform: translate(0, 0);
+    }
+    80% {
+        clip: rect(44px, 9999px, 32px, 0);
+        transform: translate(1px, 1px);
+    }
+    100% {
+        clip: rect(12px, 9999px, 90px, 0);
+        transform: translate(-1px, 2px);
+    }
+}
+@keyframes glitchBottom {
+    0% {
+        clip: rect(86px, 9999px, 4px, 0);
+        transform: translate(-1px, 0);
+    }
+    20% {
+        clip: rect(44px, 9999px, 100px, 0);
+        transform: translate(1px, 1px);
+    }
+    40% {
+        clip: rect(10px, 9999px, 100px, 0);
+        transform: translate(-3px, 0);
+    }
+    60% {
+        clip: rect(70px, 9999px, 22px, 0);
+        transform: translate(3px, 2px);
+    }
+    80% {
+        clip: rect(34px, 9999px, 10px, 0);
+        transform: translate(-1px, 1px);
+    }
+    100% {
+        clip: rect(10px, 9999px, 88px, 0);
+        transform: translate(1px, -1px);
+    }
+}
+
+/* 이미지 영역 */
+.zzal-detail-image-wrapper {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.zzal-detail-image {
+    width: 100%;
+    max-width: 500px;  /* 최대 이미지 넓이를 500px로 제한 */
+    height: auto;
+    border: 2px solid #4db6ac;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(77, 182, 172, 0.3);
+    margin: 0 auto;  /* 중앙 정렬 */
+}
+
+/* 작성자, 생성일 등 */
+.zzal-detail-info {
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.zzal-detail-writer,
+.zzal-detail-created {
+    margin: 4px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #e0e0e0;
+}
+
+.info-label {
+    color: #ff63db;
+    margin-right: 4px;
+    font-weight: 600;
+}

@@ -1,0 +1,141 @@
+/* 전체 컨테이너 */
+.zzal-list-container {
+    margin-top: 20px;
+    padding: 0 15px;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 글리치 타이틀 */
+.zzal-list-title {
+    position: relative;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #00ffa3; /* 네온그린 */
+    margin-bottom: 24px;
+    overflow: hidden;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* 글리치 pseudo-elements */
+.zzal-list-title.glitch::before,
+.zzal-list-title.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    clip: rect(0, 900px, 0, 0);
+}
+
+.zzal-list-title.glitch::before {
+    top: 0;
+    color: #00ffa3;
+    animation: glitchListTop 1.5s infinite linear alternate-reverse;
+}
+
+.zzal-list-title.glitch::after {
+    top: 0;
+    color: #ff63db;
+    animation: glitchListBottom 1.5s infinite linear alternate-reverse;
+}
+
+/* Masonry 레이아웃 (column-count 활용) */
+.zzal-list {
+    /* 기본적인 스타일 */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    /* 핵심: 화면 크기에 따라 열 개수 자동 조절 */
+    column-count: 2;    /* 모바일 기본 2열 */
+    column-gap: 16px;   /* 열 사이 간격 */
+}
+
+/* 반응형: 큰 화면에서는 열을 늘림 */
+@media (min-width: 768px) {
+    .zzal-list {
+        column-count: 3; /* 태블릿 */
+    }
+}
+@media (min-width: 1200px) {
+    .zzal-list {
+        column-count: 4; /* 데스크톱 큰 화면 */
+    }
+}
+
+/* 각 LI 아이템은 column-flow로 배치되려면 inline-block 이어야 함 */
+.zzal-list-item {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 16px; /* 아이템 간 하단 여백 */
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.zzal-list-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 255, 163, 0.2);
+}
+
+/* 링크 */
+.zzal-list-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 8px;
+}
+
+/* 이미지(기본적으로 원본 비율 유지) */
+.zzal-image {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    display: block; /* inline 기본 여백 제거 */
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+/* 호버 시 살짝 확대 */
+.zzal-list-item:hover .zzal-image {
+    transform: scale(1.02);
+    border-color: #00ffa3;
+}
+
+/* 작성자 */
+.zzal-title {
+    margin: 10px 0 0 0;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+/* 로딩/에러 상태 */
+.zzal-list-loading,
+.zzal-list-error,
+.zzal-list-empty {
+    text-align: center;
+    padding: 40px 0;
+    color: #ccc;
+    font-size: 1.1rem;
+}
+
+/* 글리치 keyframes */
+@keyframes glitchListTop {
+    0% { clip: rect(10px, 9999px, 50px, 0); transform: translate(2px, -2px); }
+    20% { clip: rect(70px, 9999px, 25px, 0); transform: translate(-1px, 1px); }
+    40% { clip: rect(20px, 9999px, 60px, 0); transform: translate(1px, 1px); }
+    60% { clip: rect(30px, 9999px, 40px, 0); transform: translate(-1px, -1px); }
+    80% { clip: rect(0px, 9999px, 70px, 0); transform: translate(2px, 1px); }
+    100% { clip: rect(10px, 9999px, 50px, 0); transform: translate(1px, -2px); }
+}
+@keyframes glitchListBottom {
+    0% { clip: rect(90px, 9999px, 10px, 0); transform: translate(-1px, 1px); }
+    20% { clip: rect(0px, 9999px, 80px, 0); transform: translate(1px, -1px); }
+    40% { clip: rect(50px, 9999px, 20px, 0); transform: translate(1px, 2px); }
+    60% { clip: rect(10px, 9999px, 60px, 0); transform: translate(-1px, -1px); }
+    80% { clip: rect(70px, 9999px, 30px, 0); transform: translate(2px, 1px); }
+    100% { clip: rect(90px, 9999px, 10px, 0); transform: translate(-2px, 1px); }
+}

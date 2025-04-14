@@ -1,0 +1,38 @@
+.upload-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(18, 18, 18, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.upload-modal-container {
+    background: #121212;
+    padding: 20px 20px 40px; /* 하단에 여유 공간 추가 */
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    color: #e0e0e0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+}
+
+.upload-modal-title {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #4db6ac;
+}
+
+.upload-modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+    /* 만약 버튼들이 여전히 가려지면 추가 여백을 줄 수 있음 */
+}
