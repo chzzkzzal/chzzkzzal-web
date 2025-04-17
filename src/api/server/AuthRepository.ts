@@ -24,11 +24,11 @@ interface LoginCheckResponse {
 
 export class AuthRepository {
     async checkLogin(): Promise<boolean> {
-        const response = await apiClient.get<CustomResponse<LoginCheckResponse>>('/api/auth/check');
+        const response = await apiClient.get<CustomResponse<LoginCheckResponse>>('/auth/check');
         return response.data.result.loggedIn;
     }
     async logout(): Promise<void> {
-        await apiClient.post('/api/auth/logout');
+        await apiClient.post('/auth/logout');
     }
 }
 
