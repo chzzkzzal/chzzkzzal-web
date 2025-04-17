@@ -71,11 +71,14 @@ export class ZzalRepository {
 
         try {
             // 전송
-            const res = await apiClient.post<ServerResponse<number>>('/zzals', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-            });
+            // ec2에선 아래 로직 에러 뜸
+            // const res = await apiClient.post<ServerResponse<number>>('/zzals', formData, {
+            //     headers: {
+            //         'Content-Type': 'multipart/form-data'
+            //     },
+            // });
+            const res = await apiClient.post<ServerResponse<number>>('/zzals', formData);
+
 
             console.log('Upload response:', res.data);
 
