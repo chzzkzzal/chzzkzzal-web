@@ -82,7 +82,6 @@ export class ZzalRepository {
 
             console.log('Upload response:', res.data);
 
-            // ServerResponse 형식 처리
             if (res.data && res.data.result !== undefined) {
                 const id = res.data.result;
                 if (!Number.isFinite(id)) {

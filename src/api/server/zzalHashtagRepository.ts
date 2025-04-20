@@ -33,7 +33,7 @@ export class ZzalHashtagRepository {
         if (isNaN(zzalId)) {
             throw new Error("zzalId must be a valid number");
         }
-        await apiClient.post(`/api/zzals/${zzalId}/tags`, { tags });
+        await apiClient.post(`/zzals/${zzalId}/tags`, { tags });
     }
 
     /**
@@ -43,7 +43,7 @@ export class ZzalHashtagRepository {
      * @param size 페이지 크기
      */
     async search(keyword: string, page = 0, size = 20): Promise<Page<ZzalSummaryResponse>> {
-        const res = await apiClient.get('/api/zzals/search', {
+        const res = await apiClient.get('/zzals/search', {
             params: { keyword, page, size }
         });
         return res.data;
@@ -54,7 +54,7 @@ export class ZzalHashtagRepository {
      * @param zzalId 조회할 짤 ID
      */
     async getTags(zzalId: number): Promise<string[]> {
-        const res = await apiClient.get(`/api/zzals/${zzalId}/tags`);
+        const res = await apiClient.get(`/zzals/${zzalId}/tags`);
         // 백엔드에서 전체 응답을 래핑해 주므로, 실제 태그 배열은 res.data.result에 들어 있음
         const { result } = res.data;
         return Array.isArray(result) ? result : [];
